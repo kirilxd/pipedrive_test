@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom, Observable } from 'rxjs';
 import { AxiosError, AxiosResponse } from 'axios';
@@ -6,6 +6,7 @@ import { DealDto } from './dto/deal.dto';
 
 @Injectable()
 export class DealsService {
+  private readonly logger = new Logger('DealsService');
   constructor(private readonly httpService: HttpService) {}
   async findAll(): Promise<any[]> {
     const { data } = await firstValueFrom(
@@ -13,7 +14,7 @@ export class DealsService {
         .get<any[]>(`/deals?api_token=${process.env.API_TOKEN}`)
         .pipe(
           catchError((error: AxiosError) => {
-            console.log(error);
+            this.logger.error(error);
             throw 'An error happened!';
           }),
         ),
@@ -22,15 +23,13 @@ export class DealsService {
   }
 
   async create(dealDto: DealDto): Promise<any[]> {
+    this.logger.log(`Request object: ${JSON.stringify(dealDto)}`);
     const { data } = await firstValueFrom(
       this.httpService
-        .post<any[]>(
-          `/deals?api_token=${process.env.API_TOKEN}`,
-          dealDto,
-        )
+        .post<any[]>(`/deals?api_token=${process.env.API_TOKEN}`, dealDto)
         .pipe(
           catchError((error: AxiosError) => {
-            console.log(error);
+            this.logger.error(error);
             throw 'An error happened!';
           }),
         ),
@@ -39,15 +38,13 @@ export class DealsService {
   }
 
   async update(id: number, dealDto: DealDto): Promise<any[]> {
+    this.logger.log(`id: ${id}, request object: ${JSON.stringify(dealDto)}`);
     const { data } = await firstValueFrom(
       this.httpService
-        .put<any[]>(
-          `/deals/${id}?api_token=${process.env.API_TOKEN}`,
-          dealDto,
-        )
+        .put<any[]>(`/deals/${id}?api_token=${process.env.API_TOKEN}`, dealDto)
         .pipe(
           catchError((error: AxiosError) => {
-            console.log(error);
+            this.logger.error(error);
             throw 'An error happened!';
           }),
         ),
