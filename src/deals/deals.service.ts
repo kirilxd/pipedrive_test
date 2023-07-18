@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { catchError, firstValueFrom, Observable } from 'rxjs';
-import { AxiosError, AxiosResponse } from 'axios';
+import { catchError, firstValueFrom } from 'rxjs';
+import { AxiosError } from 'axios';
 import { DealDto } from './dto/deal.dto';
 
 @Injectable()
