@@ -4,7 +4,7 @@ Pipedrive DevOps position test task
 
 ## Running the app
 
-Add your API_KEY to .env file
+Add your API_TOKEN to .env file
 
 ```bash
 # build docker image
