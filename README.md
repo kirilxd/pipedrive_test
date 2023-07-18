@@ -34,6 +34,7 @@ $ npm run test:cov
 3. Adding logging using defalt nestjs logger.
 4. Adding `/metrics` endpoint using nestjs-prometheus library.
 5. Setting up CI/CD using Github Actions. Testing flows by creating separate branch, PR and merging it.
+6. Finding out my api key was exposed, removed it and generated a new one
 
 ## License
 
